@@ -37,3 +37,11 @@ test('test 3', async ({ page }) => {
   }
 });
 
+test('test 4', async ({page}) => {
+  await page.goto('https://www.mercadolibre.com.co')
+
+  //await page.getByRole('link',{name: 'Mis compras'}).click()
+  await page.getByRole('link',{name: 'Ingresa',exact:true}).click()
+});
+
+
