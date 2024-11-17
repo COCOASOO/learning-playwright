@@ -69,4 +69,5 @@ test("prueba login", async ({ page }) => {
   await hacerLogin(page);
   await verificarLogin(page);
   await obtenerProductoRandom(page);
+  console.log("weelll done")
 });
