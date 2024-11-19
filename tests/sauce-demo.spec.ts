@@ -1,14 +1,35 @@
 import { test, expect, Page } from "@playwright/test";
 import { LoginPage } from "./pageobjects/loginpage";
+import readline from "readline";
+
+// Función para leer la entrada desde el teclado
+async function obtenerEntrada(prompt: string): Promise<string> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(prompt, (respuesta) => {
+      rl.close();
+      resolve(respuesta);
+    });
+  });
+}
+
 async function abrirPagina(page: Page): Promise<void> {
   await page.goto("https://www.saucedemo.com/");
 }
 
 async function hacerLogin(page: Page): Promise<void> {
   const loginPage = new LoginPage(page);
-  await loginPage.fillUsername('problem_user');
-  await loginPage.fillPassword('secret_sauce');
-  await loginPage.clickOnLogin();
+
+  // Leer usuario y contraseña desde el teclado
+  const username = await obtenerEntrada("Introduce el nombre de usuario: ");
+  const password = await obtenerEntrada("Introduce la contraseña: ");
+
+  // Iniciar sesión con las credenciales introducidas
+  await loginPage.loginWithCredentials(username, password);
 }
 
 async function verificarLogin(page: Page): Promise<void> {
@@ -69,5 +90,5 @@ test("prueba login", async ({ page }) => {
   await hacerLogin(page);
   await verificarLogin(page);
   await obtenerProductoRandom(page);
-  console.log("weelll done");
+  console.log("¡Proceso completado!");
 });
