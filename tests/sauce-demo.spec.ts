@@ -1,7 +1,8 @@
 import { test, expect, Page } from "@playwright/test";
 import { LoginPage } from "./pageobjects/loginpage";
+
 async function abrirPagina(page: Page): Promise<void> {
-  await page.goto("https://www.saucedemo.com/");
+  await page.goto(process.env.URL)
 }
 
 async function hacerLogin(page: Page): Promise<void> {
