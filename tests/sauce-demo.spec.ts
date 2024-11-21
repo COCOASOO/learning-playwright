@@ -2,7 +2,11 @@ import { test, expect, Page } from "@playwright/test";
 import { LoginPage } from "./pageobjects/loginpage";
 
 async function abrirPagina(page: Page): Promise<void> {
-  await page.goto(process.env.URL)
+  if (process.env.URL) {
+    await page.goto(process.env.URL)
+  } else {
+    throw new Error('URL is not defined in the environment variables');
+  }
 }
 
 async function hacerLogin(page: Page): Promise<void> {
