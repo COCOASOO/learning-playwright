@@ -18,7 +18,7 @@ async function hacerLogin(page: Page): Promise<void> {
 
 async function verificarLogin(page: Page): Promise<void> {
   await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
-  await page.screenshot({path:'screenshots/loginverify.png'})
+  await page.screenshot({path:'screenshots/loginverify.png',fullPage:true})
 
 }
 
@@ -42,9 +42,9 @@ async function obtenerProductoRandom(page: Page): Promise<void> {
     .innerText();
 
   await randomItem.getByRole("button", { name: "Add to cart" }).click();
-  await page.screenshot({path:'screenshots/addtocart.png'})
+  await page.screenshot({path:'screenshots/addtocart.png',fullPage:true})
   await page.locator("a.shopping_cart_link").click();
-  await page.screenshot({path:'screenshots/gotocart.png'})
+  await page.screenshot({path:'screenshots/gotocart.png',fullPage:true})
 
   const actualName = await page.locator(".inventory_item_name").innerText();
   const actualDescription = await page
@@ -66,7 +66,7 @@ async function obtenerProductoRandom(page: Page): Promise<void> {
   expect(page.getByRole("button", { name: "Continue" })).toBeVisible();
   await page.getByRole("button", { name: "Continue" }).click();
   await page.getByRole("button", { name: "Finish" }).click();
-  await page.screenshot({path:'screenshots/finishpage.png'})
+  await page.screenshot({path:'screenshots/finishpage.png',fullPage:true})
 
 
   await expect(
@@ -79,6 +79,6 @@ test("prueba login", async ({ page }) => {
   await hacerLogin(page);
   await verificarLogin(page);
   await obtenerProductoRandom(page);
-  await page.screenshot({path:'screenshots/testFinished.png'})
+  await page.screenshot({path:'screenshots/testFinished.png',fullPage:true})
 
 });
