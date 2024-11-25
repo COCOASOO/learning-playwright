@@ -4,6 +4,7 @@ import { LoginPage } from "./pageobjects/loginpage";
 async function abrirPagina(page: Page): Promise<void> {
   if (process.env.URL) {
     await page.goto(process.env.URL)
+    await page.screenshot({path:'screenshots/gotopage.png'})
   } else {
     throw new Error('URL is not defined in the environment variables');
   }
@@ -12,10 +13,13 @@ async function abrirPagina(page: Page): Promise<void> {
 async function hacerLogin(page: Page): Promise<void> {
   const loginPage = new LoginPage(page);
   await loginPage.loginWithCredentials('standard_user','secret_sauce');
+  await page.screenshot({path:'screenshots/login.png'})
 }
 
 async function verificarLogin(page: Page): Promise<void> {
   await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
+  await page.screenshot({path:'screenshots/loginverify.png'})
+
 }
 
 async function obtenerProductoRandom(page: Page): Promise<void> {
@@ -38,8 +42,9 @@ async function obtenerProductoRandom(page: Page): Promise<void> {
     .innerText();
 
   await randomItem.getByRole("button", { name: "Add to cart" }).click();
-
+  await page.screenshot({path:'screenshots/addtocart.png'})
   await page.locator("a.shopping_cart_link").click();
+  await page.screenshot({path:'screenshots/gotocart.png'})
 
   const actualName = await page.locator(".inventory_item_name").innerText();
   const actualDescription = await page
@@ -61,6 +66,8 @@ async function obtenerProductoRandom(page: Page): Promise<void> {
   expect(page.getByRole("button", { name: "Continue" })).toBeVisible();
   await page.getByRole("button", { name: "Continue" }).click();
   await page.getByRole("button", { name: "Finish" }).click();
+  await page.screenshot({path:'screenshots/finishpage.png'})
+
 
   await expect(
     page.getByRole("heading", { name: "Thank you for your order!" })
@@ -72,5 +79,6 @@ test("prueba login", async ({ page }) => {
   await hacerLogin(page);
   await verificarLogin(page);
   await obtenerProductoRandom(page);
-  console.log("weelll done");
+  await page.screenshot({path:'screenshots/testFinished.png'})
+
 });
