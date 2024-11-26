@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test";
 
+interface Country {
+  name: string;
+  capital: string;
+  currency: string;
+  primaryLanguage: string;
+}
+
 test("test web table", async ({ page }) => {
   await page.goto("https://cosmocode.io/automation-practice-webtable/");
 
@@ -29,12 +36,7 @@ test("test web table", async ({ page }) => {
   const countrySpanishSpeakers = countries.filter(
     (country) => country.primaryLanguage === "Spanish"
   );
+  
   console.log("PAISES ESPAÑOLES: " , countrySpanishSpeakers);
 });
 
-interface Country {
-  name: string;
-  capital: string;
-  currency: string;
-  primaryLanguage: string;
-}
