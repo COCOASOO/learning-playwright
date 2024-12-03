@@ -44,7 +44,7 @@ export default defineConfig({
         contextOptions: {
           permissions: ["clipboard-read", "clipboard-write"],
         },
-        storageState: "playwright/auth./user.json",
+        storageState: "playwright/.auth/user.json", // Corregido
       },
       dependencies: ["setup"],
     },
