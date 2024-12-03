@@ -39,9 +39,19 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        contextOptions: {
+          permissions: ["clipboard-read", "clipboard-write"],
+        },
+        storageState: "playwright/auth./user.json",
+      },
+      dependencies: ["setup"],
     },
-
+    {
+      name: "setup",
+      testMatch: /.*\.setup\.ts/,
+    },
     /*{
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
